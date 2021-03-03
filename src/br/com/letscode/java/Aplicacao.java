@@ -1,5 +1,6 @@
 package br.com.letscode.java;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -18,7 +19,9 @@ public class Aplicacao {
         final var path = this.lerCaminhoParaExplorar();
         this.fileSystemExplorer = new FileSystemExplorer(path);
 //        this.apresentarResumo();
-        this.buscarArquivosPorExtensao();
+//        this.buscarArquivosPorExtensao();
+//        this.listFilesSortedByModificationDate();
+        this.listFilesSortedBySize();
     }
 
     private void imprimirCabecalho() {
@@ -43,6 +46,20 @@ public class Aplicacao {
         Scanner scanner = new Scanner(System.in);
         final var extension = scanner.nextLine();
         fileSystemExplorer.filterFilesWithExtension(extension);
+    }
+
+    private void listFilesSortedByModificationDate() {
+        System.out.println("Conteúdo do diretório ordenado por Data de Modificação");
+        fileSystemExplorer.listFilesSortedByModificationDate();
+    }
+
+    private void listFilesSortedBySize() {
+        System.out.println("Conteúdo do diretório ordenado por Tamanho (MB)");
+        try {
+            fileSystemExplorer.listFilesSortedBySize();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
 }
